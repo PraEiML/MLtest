@@ -46,7 +46,11 @@ def main():
                     "Detection": detection,
                 }
                 new_entry["RPN"] = calculate_rpn(new_entry)
-                st.session_state.fmea_table = st.session_state.fmea_table.append(new_entry, ignore_index=True)
+
+                # Use pd.concat instead of append
+                new_df = pd.DataFrame([new_entry])
+                st.session_state.fmea_table = pd.concat([st.session_state.fmea_table, new_df], ignore_index=True)
+
                 st.success("Entry added to the table!")
 
         st.write("### FMEA Table")
